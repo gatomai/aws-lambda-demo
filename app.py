@@ -11,7 +11,7 @@ lon = '-73.98638285425646'
 exclude = 'minutely,hourly,alerts'
 
 url = (
-    'https://api.openweathermap.org/data/2.5/onecall?' +
+    'https://api.openweathermap.org/data/2.5/weather?' +
     'lat={lat}&lon={lon}&exclude={exclude}&appid={API_key}&units=imperial'
 )
 
@@ -28,7 +28,7 @@ def __send_email(msg: str) -> None:
     # Create Email
     mail_from = gmail_user
     mail_to = gmail_user
-    mail_subject = f'Weather Today {datetime.today().strftime("%m/%d/%Y")}'
+    mail_subject = f'Weather For Today {datetime.today().strftime("%m/%d/%Y")}'
     mail_message = f'Subject: {mail_subject}\n\n{msg}'
 
     # Send Email
@@ -52,7 +52,8 @@ def handler(event, context):
     rain_conditions = ['rain', 'thunderstorm', 'drizzle']
     snow_conditions = ['snow']
 
-    today_weather = data['daily'][0]['weather'][0]['main'].lower()
+    today_weather = data['weather'][0]['main'].lower()
+
 
     if today_weather in rain_conditions:
         msg = 'Pack an umbrella!'

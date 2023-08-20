@@ -7,6 +7,7 @@ COPY app.py ${LAMBDA_TASK_ROOT}
 COPY requirements.txt ${LAMBDA_TASK_ROOT}
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install urllib3==1.26.6
 
 ARG WEATHER_API_KEY
 ARG EMAIL_USER
